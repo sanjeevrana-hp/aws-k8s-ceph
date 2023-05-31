@@ -68,6 +68,7 @@ Before run the ./infra-k8.sh options, export the AWS_ACCESS_KEY_ID, AWS_SECRET_A
 options
 
 - --create-cluster  create the infra and install the k8s.
+- --create-ceph     create the infra, install k8s and Ceph Storage
 - --delete-cluster  delete the k8s cluster with infra.
 
 
@@ -83,6 +84,7 @@ here's the options:
 ========================
 
 --create-cluster  create the infra and install the k8s.
+--create-ceph     create the infra, install k8s and Ceph Storage
 --delete-cluster  delete the k8s cluster with infra.
 ```
 
