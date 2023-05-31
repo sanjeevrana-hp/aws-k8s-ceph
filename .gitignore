@@ -1,0 +1,7 @@
+.git
+.terraform
+.terraform.d
+.terraform.lock.hcl
+mykey-pair
+terraform.tfstate
+terraform.tfstate.backup
