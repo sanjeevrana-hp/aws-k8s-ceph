@@ -19,5 +19,5 @@
         
       - name: Copy the dashboard-external-https.yaml
         ansible.builtin.copy:
-          src: /dashboard-external-https.yaml
+          src: rook-ceph/dashboard-external-https.yaml
           dest: /var/tmp/dashboard-external-https.yaml
