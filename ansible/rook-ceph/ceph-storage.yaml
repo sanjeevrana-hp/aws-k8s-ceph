@@ -27,9 +27,9 @@
     - name: Change the svc to NodePort
       command: kubectl patch svc rook-ceph-mgr-dashboard-external-https -n rook-ceph --type='json' -p '[{"op":"replace","path":"/spec/type","value":"NodePort"},{"op":"replace","path":"/spec/ports/0/nodePort","value":32528}]'
       
-    - name: Sleep for 30 seconds
+    - name: Sleep for 60 seconds
       wait_for:
-         delay: 30
+         delay: 60
          timeout: 0
 
     - name: To get the Ceph admin credentials
