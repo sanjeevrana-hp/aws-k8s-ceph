@@ -127,7 +127,7 @@ EOF
 }
 
 ## Clone the Rook Ceph
-git clone --single-branch --branch master https://github.com/rook/rook.git
+git clone --single-branch --branch master https://github.com/rook/rook.git /var/tmp/
 
 ### kubelet should use containerd
 {
