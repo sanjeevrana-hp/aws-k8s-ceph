@@ -47,7 +47,7 @@ Help()
    echo "------------------------"
    echo "--create-cluster  create the infra and install the k8s."
    echo "--delete-cluster  delete the k8s cluster with infra."
-   echo "--create-msrv3  create the infra,k8s cluster along with MSRv3."
+   echo "--create-ceph  create the infra,k8s cluster along with Ceph."
    echo
 }
 
