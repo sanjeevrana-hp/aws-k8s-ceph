@@ -10,9 +10,8 @@
     - name: Apply rook deployment ceph
       command: "{{ item }}"
       with_items:
-      - kubectl create -f /terraform/rook/deploy/examples/crds.yaml -f /terraform/rook/deploy/examples/common.yaml -f /terraform/rook/deploy/examples/operator.yaml
-
-      - kubectl create -f /terraform/rook/deploy/examples/cluster.yaml
+      - kubectl create -f /var/tmp/rook/deploy/examples/crds.yaml -f /var/tmp/rook/deploy/examples/common.yaml -f /var/tmp/rook/deploy/examples/operator.yaml
+      - kubectl create -f /var/tmp/rook/deploy/examples/cluster.yaml
 
     - name: Sleep for 120 seconds
       wait_for:
@@ -20,9 +19,7 @@
          timeout: 0
 
     - name: Create the dashboard for Ceph to access through the NodePort Service.
-      command: kubectl apply -f /terraform/ansible/rook-ceph/dashboard-external-https.yaml
-      
+      command: kubectl apply -f /var/tmp/dashboard-external-https.yaml
+
     - name: Create the ceph tool pod for troubleshooting
-      command: kubectl create -f /terraform/rook/deploy/examples/toolbox.yaml
-
-
+      command: kubectl create -f /var/tmp/rook/deploy/examples/toolbox.yaml
