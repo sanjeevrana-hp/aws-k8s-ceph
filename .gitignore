@@ -6,3 +6,4 @@ mykey-pair
 terraform.tfstate
 terraform.tfstate.backup
 ansible/join-command
+ansible/rook-ceph/ceph-creds.txt
