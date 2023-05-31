@@ -27,6 +27,10 @@ case $1 in
 		echo "Installing the Ceph Storage using Rook"
 		cd /terraform/ansible/rook-ceph
 		ansible-playbook ceph-storage.yaml
+		cd /terraform
+		terraform output
+		public_ip=`terraform state show aws_instance.k8s_manager |grep public_dns |cut -d '"' -f2`
+                echo "Ceph Storage URL ->  http://$public_ip:32528"
                 ;;
 
         "--delete-cluster")
