@@ -26,3 +26,22 @@
       
     - name: Change the svc to NodePort
       command: kubectl patch svc rook-ceph-mgr-dashboard-external-https -n rook-ceph --type='json' -p '[{"op":"replace","path":"/spec/type","value":"NodePort"},{"op":"replace","path":"/spec/ports/0/nodePort","value":32528}]'
+      
+    - name: Sleep for 30 seconds
+      wait_for:
+         delay: 30
+         timeout: 0
+
+    - name: To get the Ceph admin credentials
+      shell: kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="{['data']['password']}" | base64 --decode
+      register: creds
+
+    - name: Output the variable
+      debug:
+       msg: "{{creds.stdout}}"
+
+    - name: save locally
+      local_action:
+         module: copy
+         content: "{{ creds.stdout_lines }}"
+         dest: /terraform/ansible/rook-ceph/ceph-creds.txt
