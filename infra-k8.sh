@@ -29,8 +29,11 @@ case $1 in
 		ansible-playbook ceph-storage.yaml
 		cd /terraform
 		terraform output
+		echo "Here's the useful URL, and creds for Ceph Storage"
 		public_ip=`terraform state show aws_instance.k8s_manager |grep public_dns |cut -d '"' -f2`
+		creds=`cat /terraform/ansible/rook-ceph/ceph-creds.txt`
                 echo "Ceph Storage URL ->  http://$public_ip:32528"
+		echo "Ceph Creds for admin user -> $creds"
                 ;;
 
         "--delete-cluster")
