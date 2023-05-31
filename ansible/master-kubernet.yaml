@@ -16,3 +16,8 @@
 
       - name: Copy join command to local file
         local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
+        
+      - name: Copy the dashboard-external-https.yaml
+        ansible.builtin.copy:
+          src: /dashboard-external-https.yaml
+          dest: /var/tmp/dashboard-external-https.yaml
