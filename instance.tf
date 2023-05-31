@@ -77,7 +77,7 @@ resource "aws_instance" "k8s_manager" {
 #!/bin/bash
 cd /var/tmp/
 apt-get install wget
-wget https://raw.githubusercontent.com/sanjeevrana-hp/aws-vanilla-k8s/main/install_master.sh
+wget https://github.com/sanjeevrana-hp/aws-k8s-ceph/blob/main/install_master.sh
 chmod 700 install_master.sh
 EOF
   tags = {
@@ -102,7 +102,7 @@ resource "aws_instance" "k8s_worker" {
 #!/bin/bash
 cd /var/tmp/
 apt-get install wget
-wget https://raw.githubusercontent.com/sanjeevrana-hp/aws-vanilla-k8s/main/install_worker.sh
+wget https://github.com/sanjeevrana-hp/aws-k8s-ceph/blob/main/install_worker.sh
 chmod 700 install_worker.sh
 EOF
   tags = {
