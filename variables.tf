@@ -22,4 +22,5 @@ variable "aws_profile" {
 }
 
 variable "name" {
+  default = "k8s-ceph"
 }
