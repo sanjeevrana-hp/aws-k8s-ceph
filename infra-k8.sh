@@ -24,7 +24,7 @@ case $1 in
                 ansible-playbook master-kubernet.yaml
                 ansible-playbook worker-kubernet.yaml
 		sleep 30
-		echo "Installing the StorageClasses"
+		echo "Installing the Ceph Storage using Rook"
 		cd /terraform/ansible/rook-ceph
 		ansible-playbook ceph-storage.yaml
                 ;;
