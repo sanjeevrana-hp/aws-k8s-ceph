@@ -89,7 +89,7 @@ here's the options:
 ```
 
 
-2. The below script will create the two EC2 (kube-master & kube-worker) using the terraform, and install the k8s using the ansible-playbook :ok_hand:
+2. The below script will create the four EC2 instances (1 kube-master & 3 kube-worker), along with extra EBS volumes using the terraform, and install the k8s and ceph using the ansible-playbook :ok_hand:
 ```python
 cd /terraform/
 ./infra-k8.sh --create-cluster
@@ -106,14 +106,3 @@ cd /terraform/
 To access the ec2, there is a keypair generated in the /terraform directory, so you can execute the below command. Public IP address for the instances will display at the end of the script.
 
 - ssh -i mykey-pair ubuntu@ec_ipaddress
-
-## Ceph Installation
-cd /var/tmp
-git clone --single-branch --branch master https://github.com/rook/rook.git
-cd rook/deploy/examples
-kubectl create -f crds.yaml -f common.yaml -f operator.yaml
-kubectl create -f cluster.yaml
-kubectl -n rook-ceph get pod ( to check the ceph pod status, and wait until it's running)
-kubectl create -f dashboard-external-https.yaml
-# To get the passord for admin user.
-kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="{['data']['password']}" | base64 --decode && echo
