@@ -131,8 +131,10 @@ Example:
 Kubernetes status is the first line of investigating when something goes wrong with the cluster. Here are a few artifacts that are helpful to gather:
 
 - Rook pod status:
+  
   kubectl get pod -n <cluster-namespace> -o wide
   e.g., kubectl get pod -n rook-ceph -o wide
+   
 - Logs for Rook pods
   Logs for the operator: kubectl logs -n <cluster-namespace> -l app=<storage-backend-operator>
   e.g., kubectl logs -n rook-ceph -l app=rook-ceph-operator
