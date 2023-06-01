@@ -2,7 +2,14 @@
 # Ceph K8s Cluster on AWS EC2 using terraform
 [![Up to Date](https://github.com/ikatyang/emoji-cheat-sheet/workflows/Up%20to%20Date/badge.svg)](https://github.com/ikatyang/emoji-cheat-sheet/actions?query=workflow%3A%22Up+to+Date%22)
 
+# What is Rook?
 
+Rook is an open source **cloud-native storage orchestrator** for Kubernetes, providing the platform, framework, and support for Ceph storage to natively integrate with Kubernetes.
+
+[Ceph](https://ceph.com/) is a distributed storage system that provides file, block and object storage and is deployed in large scale production clusters.
+
+Rook automates deployment and management of Ceph to provide self-managing, self-scaling, and self-healing storage services.
+The Rook operator does this by building on Kubernetes resources to deploy, configure, provision, scale, upgrade, and monitor Ceph.
 
 ## Documentation
 
@@ -106,3 +113,37 @@ cd /terraform/
 To access the ec2, there is a keypair generated in the /terraform directory, so you can execute the below command. Public IP address for the instances will display at the end of the script.
 
 - ssh -i mykey-pair ubuntu@ec_ipaddress
+
+## Troubleshooting Steps
+Once the rook-ceph-tools pod is running, you can connect to it with:
+```python
+kubectl -n rook-ceph exec -it deploy/rook-ceph-tools -- bash
+```
+All available tools in the toolbox are ready for your troubleshooting needs.
+
+Example:
+- ceph status
+- ceph osd status
+- ceph df
+- rados df
+
+# Kubernetes Tools
+Kubernetes status is the first line of investigating when something goes wrong with the cluster. Here are a few artifacts that are helpful to gather:
+
+- Rook pod status:
+  kubectl get pod -n <cluster-namespace> -o wide
+  e.g., kubectl get pod -n rook-ceph -o wide
+- Logs for Rook pods
+  Logs for the operator: kubectl logs -n <cluster-namespace> -l app=<storage-backend-operator>
+  e.g., kubectl logs -n rook-ceph -l app=rook-ceph-operator
+- Logs for a specific pod: kubectl logs -n <cluster-namespace> <pod-name>, or a pod using a label such as mon1: kubectl logs -n <cluster-   namespace> -l <label-matcher>
+  e.g., kubectl logs -n rook-ceph -l mon=a
+- Logs on a specific node to find why a PVC is failing to mount:
+  Connect to the node, then get kubelet logs (if your distro is using systemd): journalctl -u kubelet
+- Pods with multiple containers
+  For all containers, in order: kubectl -n <cluster-namespace> logs <pod-name> --all-containers
+  For a single container: kubectl -n <cluster-namespace> logs <pod-name> -c <container-name>
+- Logs for pods which are no longer running: kubectl -n <cluster-namespace> logs --previous <pod-name>
+  Some pods have specialized init containers, so you may need to look at logs for different containers within the pod.
+- kubectl -n <namespace> logs <pod-name> -c <container-name>
+  Other Rook artifacts: kubectl -n <cluster-namespace> get all
