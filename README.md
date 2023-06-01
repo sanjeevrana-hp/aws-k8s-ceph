@@ -10,7 +10,7 @@ This code is to deploy the EC2 Ubuntu 20.04 on AWS Cloud through the terraform. 
 
 We use the dynamic inventory for ansible-playbook execution using the plugin aws_ec2.
 
-Please pull the GitHub code "https://github.com/sanjeevrana-hp/aws-vanilla-k8s.git"
+Please pull the GitHub code "https://github.com/sanjeevrana-k8s-ceph.git"
 
 Update the credentials in ~/.aws/credentials, else export the AWS access_key, secret_key and region on the shell.
 
